@@ -1,0 +1,23 @@
+
+.DS_Store
+.livereload
+
+# compiled output
+/dist
+/tmp
+
+# dependencies
+node_modules/*
+dist/*
+bower_components/*
+/vendor/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+
+config/deploy.js
