@@ -10,8 +10,12 @@ var pickFiles = require('broccoli-static-compiler');
 var mergeTrees = require('broccoli-merge-trees');
 
 select2: {
-    includeAssets: false
-  }
+  includeAssets: false
+}
+
+fingerprint: {
+  prepend: 'https://di1r2b2j5jj7z.cloudfront.net/'
+}
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
