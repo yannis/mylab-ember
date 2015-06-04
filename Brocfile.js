@@ -2,19 +2,42 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-var app = new EmberApp();
+// var app = new EmberApp();
 
 
 // Put the bootstrap fonts in the place that the bootstrap css expects to find them.
 var pickFiles = require('broccoli-static-compiler');
 var mergeTrees = require('broccoli-merge-trees');
 
+var env = EmberApp.env();
+var isProductionLikeBuild = ['production', 'staging'].indexOf(env) > -1;
+
+var app = new EmberApp({
+  fingerprint: {
+    enabled: isProductionLikeBuild,
+    prepend: 'https://di1r2b2j5jj7z.cloudfront.net/'
+  },
+  sourcemaps: {
+    enabled: !isProductionLikeBuild,
+  },
+  minifyCSS: { enabled: isProductionLikeBuild },
+  minifyJS: { enabled: isProductionLikeBuild },
+
+  tests: process.env.EMBER_CLI_TEST_COMMAND || !isProductionLikeBuild,
+  hinting: process.env.EMBER_CLI_TEST_COMMAND || !isProductionLikeBuild,
+
+  vendorFiles: {
+    'handlebars.js': {
+      staging:  'bower_components/handlebars/handlebars.runtime.js'
+    },
+    'ember.js': {
+      staging:  'bower_components/ember/ember.prod.js'
+    }
+  }
+});
+
 select2: {
   includeAssets: false
-}
-
-fingerprint: {
-  prepend: 'https://di1r2b2j5jj7z.cloudfront.net/'
 }
 
 // Use `app.import` to add additional libraries to the generated
