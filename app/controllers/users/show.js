@@ -34,6 +34,15 @@ export default Ember.Controller.extend({
           _this.get('flashMessages').danger('Invitation not declined: '+data);
         }
       )
+    },
+    deleteInvitation: function(invitation){
+      var _this = this;
+      if (window.confirm("Are you sure you want to delete this invitation?")) {
+        invitation.destroyRecord().then(function(v) {
+          Ember.get(_this, 'flashMessages').success('Invitation canceled');
+          // _this.transitionTo('categories');
+        });
+      }
     }
   }
 })

@@ -57,7 +57,11 @@
         <ul class='list-group'>
           {{#each invitation in model.invitationsAsInvited }}
             <li class="list-group-item clearfix">
-              {{invitation.state}}:
+              {{#if invitation.state}}
+                {{invitation.state}}
+              {{else}}
+                pending
+              {{/if}}:
               {{invitation.inviterName}} invited you to group “{{invitation.groupName}}”
               <div class="btn-group pull-right" role="group" aria-label="...">
                 {{#if invitation.updatable }}
@@ -71,7 +75,7 @@
                   </a>
                 {{/if}}
                 {{#if invitation.destroyable }}
-                  <a href="#" {{action "delete" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
+                  <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
                     <span class="glyphicon glyphicon-trash"></span>
                   </a>
                 {{/if}}
@@ -84,7 +88,11 @@
         <ul class='list-group'>
           {{#each invitation in model.pendingInvitationsAsInviter }}
             <li class="list-group-item clearfix">
-              {{invitation.state}}:
+              {{#if invitation.state}}
+                {{invitation.state}}
+              {{else}}
+                pending
+              {{/if}}:
               You have invited
               {{#if invitation.invited}}
                 {{invitation.invited.name}}
@@ -94,7 +102,7 @@
               to group {{link-to invitation.group.name 'groups.show' invitation.group}}
               <div class="btn-group pull-right" role="group" aria-label="...">
                 {{#if invitation.destroyable }}
-                  <a href="#" {{action "delete" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
+                  <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
                     <span class="glyphicon glyphicon-remove"></span>
                     Cancel invitation
                   </a>
@@ -111,7 +119,11 @@
         <ul class='list-group'>
           {{#each invitation in model.pendingInvitationsAsInvited }}
             <li class="list-group-item clearfix">
-              {{invitation.state}}:
+              {{#if invitation.state}}
+                {{invitation.state}}
+              {{else}}
+                pending
+              {{/if}}:
               {{invitation.inviterName}} invited you to group “{{invitation.groupName}}”
               <div class="btn-group pull-right" role="group" aria-label="...">
                 {{#if invitation.updatable }}
@@ -125,7 +137,7 @@
                   </a>
                 {{/if}}
                 {{#if invitation.destroyable }}
-                  <a href="#" {{action "delete" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
+                  <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
                     <span class="glyphicon glyphicon-trash"></span>
                   </a>
                 {{/if}}
@@ -145,7 +157,11 @@
         <ul class='list-group'>
           {{#each invitation in model.pendingInvitationsAsInviter }}
             <li class="list-group-item clearfix">
-              {{invitation.state}}:
+              {{#if invitation.state}}
+                {{invitation.state}}
+              {{else}}
+                pending
+              {{/if}}:
               You have invited
               {{#if invitation.invited}}
                 {{invitation.invited.name}}
@@ -155,7 +171,7 @@
               to group {{link-to invitation.group.name 'groups.show' invitation.group}}
               <div class="btn-group pull-right" role="group" aria-label="...">
                 {{#if invitation.destroyable }}
-                  <a href="#" {{action "delete" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
+                  <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
                     <span class="glyphicon glyphicon-remove"></span>
                     Cancel invitation
                   </a>
