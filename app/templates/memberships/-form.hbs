@@ -1,11 +1,12 @@
 <form {{action "save" on="submit"}}>
-  <div class="form-group">
+  <div class="form-group {{if model.errors.role 'has-error' 'has-no-error'}}">
     <label>
       Role
-      {{input value=model.role classNames="form-control document-form-role"}}
+      {{view "select" content=roles value=model.role classNames="form-control document-form-role"}}
+      {{form-errors model=model attribute='role'}}
     </label>
   </div>
-  <div class="form-group">
+  <div class="form-group {{if model.errors.group 'has-error' 'has-no-error'}}">
     <label>
       Group
       {{select-2
@@ -15,9 +16,10 @@
         placeholder="Select a group"
         allowClear=true
       }}
+      {{form-errors model=model attribute='group'}}
     </label>
   </div>
-  <div class="form-group">
+  <div class="form-group {{if model.errors.user 'has-error' 'has-no-error'}}">
     <label>
       User
       {{select-2
@@ -27,6 +29,7 @@
         placeholder="Select a user"
         allowClear=true
       }}
+      {{form-errors model=model attribute='user'}}
     </label>
   </div>
   <input type="submit" value="Save" class="btn btn-success">

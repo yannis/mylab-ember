@@ -2,8 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function(params) {
-    var memberships = this.modelFor('groups.show').get('memberships');
-    return memberships.findBy('id', params.membership_id);
+    // var group = this.modelFor('groups.show');
+    // var memberships = group.get('memberships');
+    // return memberships.findBy('id', params.membership_id);
+    return this.store.find('membership', params.membership_id);
   },
 
   setupController: function(controller, model) {
