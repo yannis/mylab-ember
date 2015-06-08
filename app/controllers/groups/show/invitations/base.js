@@ -12,7 +12,9 @@ export default Ember.Controller.extend({
           Ember.get(_this, 'flashMessages').success('Invitation sent!');
           _this.transitionToRoute('groups.show', invitation.get('group'));
         },
-        function(){}
+        function(error){
+          Ember.get(_this, 'flashMessages').danger(error);
+        }
       );
     },
     cancel: function() {
