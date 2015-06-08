@@ -33,7 +33,7 @@
     "ember-cli-content-security-policy": "^0.4.0",
     "ember-cli-dependency-checker": "0.0.8",
     "ember-cli-deploy": "^0.4.1",
-    "ember-cli-file-picker": "0.0.4",
+    "ember-cli-file-picker": "0.0.6",
     "ember-cli-flash": "^1.0.0",
     "ember-cli-font-awesome": "0.0.9",
     "ember-cli-gravatar": "^3.0.1",
@@ -57,6 +57,7 @@
     "ember-select-2": "1.2.0",
     "express": "^4.12.3",
     "glob": "^4.5.3",
+    "mammoth": "^0.3.20",
     "morgan": "^1.5.2",
     "rails-csrf": "^1.0.1"
   }

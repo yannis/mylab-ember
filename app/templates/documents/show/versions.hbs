@@ -18,9 +18,9 @@
           <span class="glyphicon glyphicon-plus"></span>
         {{/link-to}}
         {{#file-picker
-          accept=".docx,.doc"
+          accept=".docx"
           fileLoaded="createVersionFromWordFile"
-          readAs="readAsDataURL"
+          readAs="readAsArrayBuffer"
           progress="true"
           preview=false
           classNames="btn btn-default"
