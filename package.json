@@ -59,6 +59,7 @@
     "glob": "^4.5.3",
     "mammoth": "^0.3.20",
     "morgan": "^1.5.2",
-    "rails-csrf": "^1.0.1"
+    "rails-csrf": "^1.0.1",
+    "showdown": "^1.0.2"
   }
 }

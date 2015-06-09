@@ -19,6 +19,8 @@
     "ember-simple-auth": "0.7.3",
     "dom-ruler": "0.1.4",
     "JavaScript-MD5": "~1.1.0",
-    "jquery-mockjax": "~1.6.2"
+    "jquery-mockjax": "~1.6.2",
+    "showdown-github": "~1.0.0",
+    "showdown-table": "~1.0.0"
   }
 }
