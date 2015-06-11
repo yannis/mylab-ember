@@ -23,11 +23,16 @@ export default DS.Model.extend(Abilities, {
   }.property('invitationsAsInviter.@each', 'invitationsAsInviter.@each.state'),
 
   pastInvitationsAsInvited: function(){
-    return this.get("invitationsAsInvited").filterBy("state", "accepted");
+    // return this.get("invitationsAsInvited").filterBy("state", "accepted");
+    return this.get("invitationsAsInvited").filter(function(invitation, index, invitations){
+      return invitation.get('state') !== null
+    });
   }.property('invitationsAsInvited.@each.state'),
 
   pastInvitationsAsInviter: function(){
-    return this.get("invitationsAsInviter").filterBy("state", "accepted");
+    return this.get("invitationsAsInviter").filter(function(invitation, index, invitations){
+      return invitation.get('state') !== null
+    });
   }.property('invitationsAsInviter.@each.state'),
 
   pastInvitationsCount: function(){

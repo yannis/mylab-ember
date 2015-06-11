@@ -1,9 +1,8 @@
-<li>
+<li class="list-group-item clearfix">
   <a {{bind-attr href="attachment.url" }}>
     {{attachment.name}}
   </a>
-  <a href="#" {{action "deleteAttachment" attachment}} class="btn btn-danger">
+  <a href="#" {{action "deleteAttachment" attachment}} class="btn btn-danger btn-sm pull-right">
     <span class="glyphicon glyphicon-trash"></span>
-    Destroy
   </a>
 </li>

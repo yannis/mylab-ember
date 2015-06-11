@@ -52,71 +52,9 @@
 <div class="col-md-6">
   <div class="row">
     <div class="col-md-12">
-      <h3>All invitations ({{model.invitationsAsInvited.length}})</h3>
-      {{#if model.invitationsAsInvited}}
-        <ul class='list-group'>
-          {{#each invitation in model.invitationsAsInvited }}
-            <li class="list-group-item clearfix">
-              {{#if invitation.state}}
-                {{invitation.state}}
-              {{else}}
-                pending
-              {{/if}}:
-              {{invitation.inviterName}} invited you to group “{{invitation.groupName}}”
-              <div class="btn-group pull-right" role="group" aria-label="...">
-                {{#if invitation.updatable }}
-                  <a href="#" {{action "acceptInvitation" invitation}} class="btn btn-success btn-sm" title="Accept this invitation" data-toggle="tooltip" data-placement="top">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Accept
-                  </a>
-                  <a href="#" {{action "declineInvitation" invitation}} class="btn btn-danger btn-sm" title="Decline this invitation" data-toggle="tooltip" data-placement="top">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    Decline
-                  </a>
-                {{/if}}
-                {{#if invitation.destroyable }}
-                  <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
-                    <span class="glyphicon glyphicon-trash"></span>
-                  </a>
-                {{/if}}
-              </div>
-            </li>
-          {{/each}}
-        </ul>
-      {{/if}}
-      {{#if model.pendingInvitationsAsInviter}}
-        <ul class='list-group'>
-          {{#each invitation in model.pendingInvitationsAsInviter }}
-            <li class="list-group-item clearfix">
-              {{#if invitation.state}}
-                {{invitation.state}}
-              {{else}}
-                pending
-              {{/if}}:
-              You have invited
-              {{#if invitation.invited}}
-                {{invitation.invited.name}}
-              {{else}}
-                {{invitation.email}}
-              {{/if}}
-              to group {{link-to invitation.group.name 'groups.show' invitation.group}}
-              <div class="btn-group pull-right" role="group" aria-label="...">
-                {{#if invitation.destroyable }}
-                  <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    Cancel invitation
-                  </a>
-                {{/if}}
-              </div>
-            </li>
-          {{/each}}
-        </ul>
-      {{/if}}
-    </div>
-    <div class="col-md-12">
-      <h3>Pending invitations ({{model.pendingInvitationsAsInvited.length}})</h3>
-      {{#if model.pendingInvitationsAsInvited}}
-        <ul class='list-group'>
+      <h3>Pending invitations ({{#if model.pendingInvitations}}{{model.pendingInvitations.length}}{{else}}0{{/if}})</h3>
+      <ul class='list-group'>
+        {{#if model.pendingInvitationsAsInvited}}
           {{#each invitation in model.pendingInvitationsAsInvited }}
             <li class="list-group-item clearfix">
               {{#if invitation.state}}
@@ -144,17 +82,8 @@
               </div>
             </li>
           {{/each}}
-        </ul>
-      {{else}}
-        <div class='well'>
-          You haven't received invitations yet
-        </div>
-      {{/if}}
-    </div>
-    <div class="col-md-12">
-      <h3>Invitations you have sent ({{model.pendingInvitationsAsInviter.length}})</h3>
-      {{#if model.pendingInvitationsAsInviter}}
-        <ul class='list-group'>
+        {{/if}}
+        {{#if model.pendingInvitationsAsInviter}}
           {{#each invitation in model.pendingInvitationsAsInviter }}
             <li class="list-group-item clearfix">
               {{#if invitation.state}}
@@ -173,59 +102,59 @@
                 {{#if invitation.destroyable }}
                   <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
                     <span class="glyphicon glyphicon-remove"></span>
-                    Cancel invitation
+                    Cancel
                   </a>
                 {{/if}}
               </div>
             </li>
           {{/each}}
-        </ul>
-      {{else}}
-        <div class='well'>
-          No invitations sent
-        </div>
-      {{/if}}
+        {{/if}}
+      </ul>
     </div>
     <div class="col-md-12">
       <h3>Past invitations ({{model.pastInvitationsCount}})</h3>
-        <ul class='list-group'>
-          {{#each invitation in model.pastInvitationsAsInviter }}
-            <li class="list-group-item clearfix">
-              {{invitation.state}}:
-              <p>
-                You have invited
-                {{#if invitation.invited}}
-                  {{invitation.invited.name}}
-                {{else}}
-                  {{invitation.email}}
-                {{/if}}
-                to group {{link-to invitation.group.name 'groups.show' invitation.group}}
-                <span class='small'>
-                  {{#if invitation.state}}
-                    ({{invitation.state}}: on {{formatted-date invitation.stateAt 'YYYY-MM-DD'}})
-                  {{/if}}
-                </span>
-              </p>
-            </li>
-          {{/each}}
-          {{#each invitation in model.pastInvitationsAsInvited }}
-            <li class="list-group-item clearfix">
-              {{invitation.state}}:
-              <p>
-                You have been invited
-                {{#if invitation.inviter}}
-                  {{invitation.inviter.name}}
-                {{/if}}
-                to group {{link-to invitation.group.name 'groups.show' invitation.group}}
-                <span class='small'>
-                  {{#if invitation.state}}
-                    ({{invitation.state}}: on {{formatted-date invitation.stateAt 'YYYY-MM-DD'}})
-                  {{/if}}
-                </span>
-              </p>
-            </li>
-          {{/each}}
-        </ul>
+      <ul class='list-group'>
+        {{#each invitation in model.pastInvitationsAsInviter }}
+          <li class="list-group-item clearfix">
+            {{invitation.state}}: You have invited
+            {{#if invitation.invited}}
+              {{invitation.invited.name}}
+            {{else}}
+              {{invitation.email}}
+            {{/if}}
+            to group {{link-to invitation.group.name 'groups.show' invitation.group}}
+            <span class='small'>
+              {{#if invitation.state}}
+                ({{invitation.state}}: on {{formatted-date invitation.stateAt 'YYYY-MM-DD'}})
+              {{/if}}
+            </span>
+            {{#if invitation.destroyable }}
+              <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm pull-right" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
+                <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            {{/if}}
+          </li>
+        {{/each}}
+        {{#each invitation in model.pastInvitationsAsInvited }}
+          <li class="list-group-item clearfix">
+            {{invitation.state}}: You have been invited
+            {{#if invitation.inviter}}
+              {{invitation.inviter.name}}
+            {{/if}}
+            to group {{link-to invitation.group.name 'groups.show' invitation.group}}
+            <span class='small'>
+              {{#if invitation.state}}
+                ({{invitation.state}}: on {{formatted-date invitation.stateAt 'YYYY-MM-DD'}})
+              {{/if}}
+            </span>
+            {{#if invitation.destroyable }}
+              <a href="#" {{action "deleteInvitation" invitation}} class="btn btn-danger btn-sm pull-right" title="Destroy this invitation" data-toggle="tooltip" data-placement="top">
+                <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
     </div>
   </div>
 </div>
