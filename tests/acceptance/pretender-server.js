@@ -32,7 +32,7 @@ export default new Pretender(function() {
     var response = [422, {"Content-Type": "application/json"}, JSON.stringify({errors: "Invalid email or password"})];
     var user = users.find(function(user) {
       if (request.requestBody.match(user.password) && request.requestBody.match(user.password).length > 0){
-        response = [200, {"Content-Type": "application/json"}, JSON.stringify({token: user.token, user_email: user.email, user_id: user.id})];
+        response = [200, {"Content-Type": "application/json"}, JSON.stringify({token: user.token, email: user.email, id: user.id})];
       }
     });
     return response;

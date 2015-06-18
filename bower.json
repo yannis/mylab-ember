@@ -16,7 +16,7 @@
     "bootstrap-sass-official": "~3.3.3",
     "select2": "~3.5.2",
     "pretender": "^0.6.0",
-    "ember-simple-auth": "0.7.3",
+    "ember-simple-auth": "0.8.0",
     "dom-ruler": "0.1.4",
     "JavaScript-MD5": "~1.1.0",
     "jquery-mockjax": "~1.6.2",

@@ -21,11 +21,11 @@ export default {
 
     Session.reopen({
       currentUser : function() {
-        var userId = this.get('user_id');
+        var userId = this.get('secure.id');
         if (!Ember.isEmpty(userId)) {
           return container.lookup('store:application').find('user', userId);
         };
-      }.property('user_id')
+      }.property('secure.id')
     });
   }
 };
