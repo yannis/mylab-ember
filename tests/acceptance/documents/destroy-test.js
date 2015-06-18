@@ -9,7 +9,7 @@ import startApp from 'mylab/tests/helpers/start-app';
 
 var application, server;
 
-module('Acceptance | documents/show', {
+module('Acceptance | documents/destroy', {
   beforeEach: function() {
     application = startApp();
     server = pretenderServer;
@@ -23,12 +23,16 @@ module('Acceptance | documents/show', {
   }
 });
 
-test('visiting /documents/show', function(assert) {
+test('destroying a document', function(assert) {
   visit('/documents/2');
   andThen(function() {
     assert.equal(currentRouteName(), 'documents.show.versions.index');
     assert.equal(currentPath(), 'documents.show.versions.index');
     assert.equal(currentURL(), '/documents/2/versions');
+    debugger
+    click('a[title="Destroy this document"]');
   });
-  // click('a[href="/documents"]');
+  andThen(function() {
+    debugger
+  });
 });

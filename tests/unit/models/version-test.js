@@ -1,27 +1,37 @@
+import Ember from 'ember';
 import { moduleForModel, test } from 'ember-qunit';
 
-moduleForModel('version', {
+var store, version, document, document2;
+moduleForModel('version', 'Unit | Model | version', {
   // Specify the other units that are required for this test.
-  needs: ['model:document', 'model:picture', 'model:attachment', 'model:thumbnail'],
+  needs: ['model:document', 'model:user', 'model:category', 'model:sharing', 'model:picture', 'model:attachment', 'model:thumbnail'],
   beforeEach: function () {
-    this.store = this.store();
-    this.version = this.subject({id: 74576484, name: 'version_name', createdAt: "2015-02-01"});
+    store = this.store();
+    Ember.run(function() {
+      document = store.createRecord('document', {name: "document_name"});
+      document2 = store.createRecord('document', {name: "document_name2"});
+      version = store.createRecord('version', {
+        id: 74576484,
+        name: 'version_name',
+        createdAt: "2015-02-01",
+        pdfUrl: "http://mylab.dev/api/v1/versions/74576484.pdf",
+        document: document
+      })
+    });
   },
 });
 
 test('its valid', function(assert) {
-  assert.ok(this.version);
-  assert.ok(this.version instanceof DS.Model);
-  assert.equal(this.version.get('name'), "version_name");
-  assert.equal(this.version.get('pdfUrl'), "http://mylab.dev/api/v1/versions/74576484.pdf");
-  assert.equal(this.version.get('nameForSelectMenu'), "Version 'version_name' (created February 1, 2015)");
+  assert.ok(version);
+  assert.ok(version instanceof DS.Model);
+  assert.equal(version.get('name'), "version_name");
+  assert.equal(version.get('pdfUrl'), "http://mylab.dev/api/v1/versions/74576484.pdf", "pdfUrl is ok");
+  assert.equal(version.get('nameForSelectMenu'), "Version 'version_name' (created February 1, 2015)");
 });
 
 test('it belongs to a document', function(assert) {
-  var _this = this;
-  Ember.run(function() {
-    _this.version.set('document', _this.store.createRecord('document', {name: "document_name"}))
+  version.get('document').then(function(d){
+    assert.ok(d instanceof DS.Model, "version document is a DS.model instance");
+    assert.equal(d, document, "Version document is the right instance");
   });
-  assert.ok(this.version.get('document'));
-  assert.ok(this.version.get('document') instanceof DS.Model);
 });

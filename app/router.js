@@ -9,6 +9,8 @@ Router.map(function() {
   rootURL: '/documents';
   this.route('login');
   this.route('logout');
+  this.route("reset_password");
+  this.route("new_password", {path: 'new_password/:reset_password_token'});
   this.route('accept_invitation', { path: 'accept_invitation/:id/:token' });
   this.route('decline_invitation', { path: 'decline_invitation/:id/:token' });
 
@@ -52,6 +54,7 @@ Router.map(function() {
     this.route('new');
     this.route('edit', {path: ':membership_id/edit'});
   });
+
   this.route('users', function() {
     this.route('show', {
       path: ':user_id'
@@ -66,6 +69,7 @@ Router.map(function() {
     this.route('new');
     this.route('edit', {path: ':user_id/edit'});
   });
+
   this.route('groups', function() {
     this.route('show', {path: ':group_id'}, function(){
       this.route('documents', {path: 'documents'});

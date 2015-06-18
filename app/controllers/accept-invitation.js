@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
               invitation.reload();
             },
             function(arg1) {
-              _this.get('flashMessages').error(arg1.errors);
+              _this.get('flashMessages').danger(arg1.errors);
             }
           );
         },

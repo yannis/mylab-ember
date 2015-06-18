@@ -23,7 +23,7 @@ export default {
       currentUser : function() {
         var userId = this.get('user_id');
         if (!Ember.isEmpty(userId)) {
-          return container.lookup('store:main').find('user', userId);
+          return container.lookup('store:application').find('user', userId);
         };
       }.property('user_id')
     });

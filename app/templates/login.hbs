@@ -4,17 +4,17 @@
     <form {{action 'authenticate' on='submit'}} role="form">
       {{!-- {{em-validation-errors validationErrors=validationErrors}} --}}
       <div class="form-group">
-        {{input id='identification' type="email" class="form-control" placeholder='Email' value=identification}}
+        {{input id='identification' type="email" class="form-control" placeholder='Email' value=identification autofocus='true'}}
       </div>
       <div class="form-group">
         {{input id='password' class="form-control" placeholder='Password' type='password' value=password}}
       </div>
-      <button class="btn btn-default" type="submit">Login</button>
+      <div class="form-group">
+        <button class="btn btn-default" type="submit">Login</button>
+      </div>
+      <p>
+        {{#link-to "reset_password"}}Did you forget your password?{{/link-to}}
+      </p>
     </form>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-    <p class="top">
-      <!-- {{#link-to "users.reset_password"}}Did you forget your password?{{/link-to}} -->
-    </p>
   </div>
 </div>

@@ -28,7 +28,7 @@ export default Sharable.extend(Abilities, {
   }.property('versions.@each.createdAt'),
 
   lastVersion: function(){
-    return this.get('sortedVersions').get('firstObject');
+    return this.get('sortedVersions').get('lastObject');
   }.property('sortedVersions'),
 
   lastUpdatedVersion: function(){
