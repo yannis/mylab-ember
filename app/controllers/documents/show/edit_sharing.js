@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     saveSharing: function() {
       var _this = this;
       this.get('model').save().then(function(document) {
-        Ember.get(_this, 'flashMessages').success('Document saved!', {sticky: true});
+        _this.get('flashMessages').success('Document saved!', {sticky: true});
         _this.transitionToRoute('documents.show', document);
       });
     },

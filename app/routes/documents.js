@@ -5,33 +5,16 @@ import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixi
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
-  // optional. default is 10
-  // perPage: 10,
-
-  // queryParams: {
-  //   query: {
-  //     refreshModel: true
-  //   }
-  // },
-
-  model: function(params) {
-    return this.store.find('document');
-    // return this.findPaged('document', params);
+  model: function() {
+    return this.store.findAll('document');
   },
 
-  // afterModel: function(documents, transition){
-  //   debugger
-  // },
-
   actions: {
-    // didSelect: function(id) {
-    //   debugger;
-    //   this.transitionTo('documents.show', id);
-    // },
-    delete: function(document){
+    deleteDocument: function(document){
       var _this = this;
       if (window.confirm("Are you sure you want to delete this document?")) {
         document.destroyRecord().then(function() {
+          _this.get('flashMessages').success('Document destroyed');
           _this.transitionTo('documents.index');
         });
       }

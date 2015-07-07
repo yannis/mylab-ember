@@ -20,7 +20,7 @@ loadInitializers(App, 'rails-csrf');
 
 export default App;
 
-Ember.LinkView.reopen({
+Ember.LinkComponent.reopen({
   attributeBindings: ['data-toggle', 'data-placement']
 });
 

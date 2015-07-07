@@ -4,7 +4,7 @@ export default MembershipsBaseController.extend({
   actions: {
     cancel: function() {
       this.model.rollback();
-      this.transitionToRoute('memberships.show', this.get('model'));
+      this.transitionToRoute('groups.show', this.get('model.group'));
     }
   }
 });

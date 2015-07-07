@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import config from '../config/environment';
 import { request as icAjaxRequest } from 'ic-ajax';
-import ic from 'ic-ajax';
 
 export default Ember.Route.extend({
   beforeModel: function(){
@@ -29,7 +28,7 @@ export default Ember.Route.extend({
               }
             }
           ).then(
-            function(invit){
+            function(){
               invitation.reload();
               _this.get('flashMessages').success('Invitation declined');
             },
@@ -37,20 +36,8 @@ export default Ember.Route.extend({
               invitation.reload();
               _this.get('flashMessages').danger('Invitation not declined: '+error);
             }
-          )
-          // inv.set('token', params.token);
-          // inv.set('state', 'declined');
-          // inv.set('stateAt', new Date);
-          // inv.save().then(
-          //   function(){
-          //     _this.get('flashMessages').success('Invitation declined!');
-          //   },
-          //   function(error) {
-          //     _this.get('flashMessages').danger(error);
-          //   }
-          // );
-          // return inv;
-        };
+          );
+        }
       },
       function(error) {
         _this.get('flashMessages').danger(error);

@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
         savePicture(file);
       } else if (isDocument(file)) {
         saveAttachment(file);
-      };
+      }
 
       function savePicture(file){
         var picture = self.get('store').createRecord('picture', {
@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
           image: file
         });
         picture.save().then(reloadDocument).catch(failure);
-      };
+      }
 
       function saveAttachment(file){
         var attachment = self.get('store').createRecord('attachment', {
@@ -30,26 +30,26 @@ export default Ember.Controller.extend({
           file: file
         });
         attachment.save().then(reloadDocument).catch(failure);
-      };
+      }
 
-      function reloadDocument(pictureData) {
+      function reloadDocument() {
         self.get('model').reload();
-        $(".file-picker__preview").hide();
-      };
+        Ember.$(".file-picker__preview").hide();
+      }
 
       function failure(reason) {
-        console.log("FAILURE!!!", reason.message)
-      };
+        console.log("FAILURE!!!", reason.message);
+      }
 
       function isImage(file) {
         var fileTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/tiff'];
-        return $.inArray(file.type, fileTypes) >= 0;
-      };
+        return Ember.$.inArray(file.type, fileTypes) >= 0;
+      }
 
       function isDocument(file) {
         var fileTypes = ['application/msword', 'text/plain', 'text/richtext', 'text/richtext', 'application/rtf', 'application/pdf'];
-        return $.inArray(file.type, fileTypes) >= 0;
-      };
+        return Ember.$.inArray(file.type, fileTypes) >= 0;
+      }
     }
   }
 });

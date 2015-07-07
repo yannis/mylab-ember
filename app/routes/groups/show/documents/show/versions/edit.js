@@ -15,7 +15,7 @@ export default Ember.Route.extend({
       var model = this.get('controller.model');
       var leave;
       if (model.get('isDirty')) {
-        leave = window.confirm("You have unsaved changes. Are you sure you want to leave?")
+        leave = window.confirm("You have unsaved changes. Are you sure you want to leave?");
         if (leave) {
           model.rollback();
         } else {

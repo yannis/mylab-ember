@@ -4,13 +4,27 @@
       Your memberships
     </h1>
     {{#if model}}
-      <ul class="list-group">
-        {{#each membership in model}}
-          <li class="list-group-item">
+      <ul class="list-group memberships">
+        {{#each model key='@guid' as |membership|}}
+          <li class="list-group-item memberships-membership clearfix">
             {{#link-to "groups.show" membership.group}}
               Group '{{membership.group.name}}'
             {{/link-to}}
+            {{membership.user.name}}
             ({{membership.role}})
+
+            <span class="pull-right btn-group" role="group" aria-label="...">
+              {{#if membership.updatable}}
+                {{#link-to 'memberships.edit' membership classNames='btn btn-primary btn-sm membership-edit' title="Edit this membership" data-toggle="tooltip" data-placement="top"}}
+                  <span class="glyphicon glyphicon-edit"></span>
+                {{/link-to}}
+              {{/if}}
+              {{#if membership.destroyable}}
+                <a href="#" {{action "deleteMembership" membership}} class="btn btn-danger btn-sm  membership-destroy" title="Destroy this membership" data-toggle="tooltip" data-placement="top">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              {{/if}}
+            </span>
           </li>
         {{/each}}
       </ul>

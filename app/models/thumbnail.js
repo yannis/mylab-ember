@@ -9,6 +9,6 @@ export default DS.Model.extend(Abilities, {
   picture: DS.belongsTo('picture'),
 
   markdownTag: function(){
-    return "!["+this.get('picture.filename')+"]("+this.get('url')+" '"+this.get('picture.filename')+"')"
+    return "!["+this.get('picture.filename')+"]("+this.get('url')+" '"+this.get('picture.filename')+"')";
   }.property('url', 'name', 'picture.filename')
 });

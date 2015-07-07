@@ -81,7 +81,7 @@
   </div>
 </nav>
 <div class="container-fluid">
-  {{#each flashMessages.queue as |flash|}}
+  {{#each flashMessages.queue key="@guid" as |flash|}}
     {{flash-message flash=flash}}
   {{/each}}
   {{outlet}}

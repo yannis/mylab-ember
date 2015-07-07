@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(params){
+  model: function(){
     return this.modelFor('documents.show');
   },
 
@@ -17,6 +17,6 @@ export default Ember.Route.extend({
     // Call _super for default behavior
     this._super(controller, model);
     controller.set('currentGroups', model.get('groups'));
-    controller.set('availableGroups', this.store.find('group'));
+    controller.set('availableGroups', this.store.findAll('group'));
   }
 });

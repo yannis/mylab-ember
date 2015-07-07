@@ -1,6 +1,6 @@
 <div class='row'>
   <div class="col-md-8">
-    <h1>
+    <h2>
       Group '{{model.name}}'
       <small>
         <div class="btn-group" role="group" aria-label="...">
@@ -22,31 +22,35 @@
           {{/if}}
         </div>
       </small>
-    </h1>
+    </h2>
     {{outlet}}
   </div>
   <div class="col-md-4">
     {{#if model.memberships}}
-      <h2>Group members ({{model.memberships.length}})</h2>
-      <ul class="list-group">
-        {{#each membership in model.memberships}}
-          <li class="list-group-item clearfix">
-            {{link-to membership.user.name "users.show" membership.user}} ({{membership.role}})
-            <div class="btn-group pull-right" role="group" aria-label="...">
-              {{#if membership.updatable}}
-                {{#link-to 'groups.show.memberships.edit' membership classNames='btn btn-primary btn-sm' title="Edit this membership" data-toggle="tooltip" data-placement="top"}}
-                  <span class="glyphicon glyphicon-edit"></span>
-                {{/link-to}}
-              {{/if}}
-              {{#if membership.destroyable}}
-                <a href="#" {{action "deleteMembership" membership}} class="btn btn-danger btn-sm" title="Destroy this membership" data-toggle="tooltip" data-placement="top">
-                  <span class="glyphicon glyphicon-trash"></span>
-                </a>
-              {{/if}}
-            </div>
-          </li>
-        {{/each}}
-      </ul>
+      <div class="panel panel-default group-memberships">
+        <div class="panel-heading">
+          <h2>Group members ({{model.memberships.length}})</h2>
+        </div>
+        <ul class="list-group">
+          {{#each model.memberships key='@guid' as |membership|}}
+            <li class="list-group-item clearfix">
+              {{link-to membership.user.name "users.show" membership.user}} ({{membership.role}})
+              <div class="btn-group pull-right" role="group" aria-label="...">
+                {{#if membership.updatable}}
+                  {{#link-to 'memberships.edit' membership classNames='btn btn-primary btn-sm membership-update ' title="Edit this membership" data-toggle="tooltip" data-placement="top"}}
+                    <span class="glyphicon glyphicon-edit"></span>
+                  {{/link-to}}
+                {{/if}}
+                {{#if membership.destroyable}}
+                  <a href="#" {{action "deleteMembership" membership}} class="btn btn-danger btn-sm membership-destroy" title="Destroy this membership" data-toggle="tooltip" data-placement="top">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </a>
+                {{/if}}
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
     {{else}}
       <p>
         No memberships yet.

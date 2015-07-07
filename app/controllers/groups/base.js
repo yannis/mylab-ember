@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     save: function() {
       var _this = this;
       this.get('model').save().then(function(group) {
-        Ember.get(_this, 'flashMessages').success('Group saved!');
+        _this.get('flashMessages').success('Group saved!');
         _this.transitionToRoute('groups.show', group);
       });
     }

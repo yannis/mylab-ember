@@ -19,7 +19,7 @@
   {{#if model.documents}}
     <h4>Documents</h4>
     <ul class='list-group'>
-      {{#each document in model.documents }}
+      {{#each model.documents  key='@guid' as |document|}}
         <li class="list-group-item">
           {{link-to document.name 'documents.show' document}}
         </li>

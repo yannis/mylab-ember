@@ -11,8 +11,8 @@ export default Ember.Route.extend({
     delete: function(group){
       var _this = this;
       if (window.confirm("Are you sure you want to delete this group?")) {
-        group.destroyRecord().then(function(v) {
-          Ember.get(_this, 'flashMessages').success('Group deleted');
+        group.destroyRecord().then(function() {
+          _this.get('flashMessages').success('Group deleted');
           _this.transitionTo('groups');
         });
       }
@@ -20,8 +20,8 @@ export default Ember.Route.extend({
     deleteMembership: function(membership){
       var _this = this;
       if (window.confirm("Are you sure you want to delete this membership?")) {
-        membership.destroyRecord().then(function(v) {
-          Ember.get(_this, 'flashMessages').success('Membership deleted');
+        membership.destroyRecord().then(function() {
+          _this.get('flashMessages').success('Membership deleted');
         });
       }
     },

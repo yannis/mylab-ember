@@ -8,7 +8,7 @@
     <h1>Users</h1>
     {{#if model}}
       <ul class="list-group">
-        {{#each user in model}}
+        {{#each model key='@guid' as |user|}}
           <li class="list-group-item">
             {{link-to user.name "users.show" user}}
           </li>

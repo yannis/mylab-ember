@@ -1,64 +1,175 @@
 <div class='row'>
   <div class="col-md-8">
-    <div class='row'>
-      <div class="col-md-12">
-        <h1>
-          {{#if model.category}}
-            <small>
-              {{model.category.name}}
-            </small><br>
-          {{/if}}
-          {{model.name}}
-
-          <span class="btn-group pull-right" role="group" aria-label="...">
-            {{#if model.updatable}}
-              {{#link-to 'documents.edit' model classNames='btn btn-primary' title="Edit this document" data-toggle="tooltip" data-placement="top"}}
-                <span class="glyphicon glyphicon-edit"></span>
-              {{/link-to}}
-            {{/if}}
-            {{#if model.destroyable}}
-              <a href="#" {{action "delete" model}} class="btn btn-danger" title="Destroy this document">
-                <span class="glyphicon glyphicon-trash"></span>
-              </a>
-            {{/if}}
-          </span>
-        </h1>
-        <p class="small">
-          <em>Created by {{model.user.name}} on {{formatted-date model.createdAt 'LL' }}</em>
-        </p>
-        {{outlet}}
-      </div>
-    </div>
+    {{outlet}}
   </div>
   <div class="col-md-4">
-    {{sharable-sharings }}
-    <div class="btn-group" role="group" aria-label="...">
-      {{#file-picker
-        accept=".jpg,.jpeg,.gif,.png,.pdf,.doc,.docx,.pages"
-        fileLoaded="fileLoaded"
-        readAs="readAsDataURL"
-        progress=true
-        preview=false
-        classNames="btn btn-default"
-      }}
-        <span class="glyphicon glyphicon-plus"></span>
-        Drag/click to upload a file
-      {{/file-picker}}
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h4>Infos</h4>
+          </div>
+          <table class='table'>
+            <tbody>
+              <tr>
+                <th>
+                  Creator
+                </th>
+                <td>
+                  {{link-to model.user.name 'users.show' model.user}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Date of creation
+                </th>
+                <td>
+                  {{formatted-date model.createdAt 'LL' }}
+                </td>
+              </tr>
+              {{#if model.category}}
+                <tr>
+                  <th>
+                    Category
+                  </th>
+                  <td>
+                    {{link-to model.category.name 'categories.show' model.category}}
+                  </td>
+                </tr>
+              {{/if}}
+              {{#if currentVersion}}
+                <tr>
+                  <th>
+                    Version '{{currentVersion.name}}'
+                  </th>
+                  <td>
+                    <ul class="list-unstyled">
+                      {{#if currentVersion.creator}}
+                        <li>
+                          created by {{link-to currentVersion.creator.name 'users.show' currentVersion.creator}}
+                          on {{formatted-date currentVersion.createdAt 'LL' }}
+                        </li>
+                      {{/if}}
+                      {{#if currentVersion.updater}}
+                        <li>
+                          last updated by {{link-to currentVersion.updater.name 'users.show' currentVersion.updater}}
+                          on {{formatted-date currentVersion.updatedAt 'LL' }}
+                        </li>
+                      {{/if}}
+                    </ul>
+                  </td>
+                </tr>
+              {{/if}}
+              {{#if model.versions}}
+                <tr>
+                  <th>
+                    Change version
+                  </th>
+                  <td>
+                    <form class="form form-inline">
+                      <div class="form-group">
+                        <label>
+                          {{select-2
+                            content=model.versions
+                            value=currentVersion
+                            optionLabelPath="nameForSelectMenu"
+                            placeholder="Select a version"
+                          }}
+                        </label>
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+              {{/if}}
+            </tbody>
+          </table>
+          <div class="panel-footer clearfix">
+            <div class="btn-group pull-right" role="group" aria-label="...">
+              {{#if model.updatable}}
+                {{#if currentVersion}}
+                  {{#if currentVersion.updatable}}
+                    {{#link-to 'documents.show.versions.edit' currentVersion classNames='btn btn-primary version-edit-link' title="Edit this document" data-toggle="tooltip" data-placement="top"}}
+                      <span class="glyphicon glyphicon-edit"></span>
+                    {{/link-to}}
+                    {{#link-to 'documents.show.versions.duplicate' currentVersion.id classNames='btn btn-success' title="Duplicate this version" data-toggle="tooltip" data-placement="top"}}
+                      <span class="glyphicon glyphicon-duplicate"></span>
+                    {{/link-to}}
+                  {{/if}}
+                  {{#if currentVersion.destroyable}}
+                    <a href="#" {{action "deleteVersion" currentVersion}} class="btn btn-danger" title="Destroy this version" data-toggle="tooltip" data-placement="top">
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                  {{/if}}
+                  {{#if currentVersion.readable}}
+                    <a href="{{pdfUrlWithCredentials}}" class="btn btn-default" title="Get a PDF of this version" data-toggle="tooltip" data-placement="top"  target="_blank">
+                      {{fa-icon "file-pdf-o"}}
+                    </a>
+                  {{/if}}
+                {{/if}}
+                {{#link-to 'documents.show.versions.new' classNames='btn btn-success' title="Create a new version for this document" data-toggle="tooltip" data-placement="top"}}
+                  <span class="glyphicon glyphicon-plus"></span>
+                {{/link-to}}
+                {{#file-picker
+                  accept=".docx"
+                  fileLoaded="createVersionFromWordFile"
+                  readAs="readAsArrayBuffer"
+                  progress="true"
+                  preview=false
+                  classNames="btn btn-default"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="New version from .doc"
+                }}
+                  <span class="glyphicon glyphicon-plus"></span>
+                  {{fa-icon "file-word-o"}}
+                {{/file-picker}}
+              {{/if}}
+              {{#if model.destroyable}}
+                <a href="#" {{action "deleteDocument" model}} class="btn btn-danger document-destroy" title="Destroy this document and its versions" data-toggle="tooltip" data-placement="top">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              {{/if}}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </div>
-    {{#if model.attachments}}
-      <h3>Attachments ({{model.attachments.length}})</h3>
-      <ul class="list-group">
-        {{#each attachment in model.attachments}}
-          {{view "attachments/show" attachment}}
-        {{/each}}
-      </ul>
-    {{/if}}
-    {{#if model.pictures}}
-      <h3>Pictures ({{model.pictures.length}})</h3>
-      {{#each picture in model.pictures}}
-        {{view "pictures/show" picture}}
-      {{/each}}
-    {{/if}}
+    <div class="row">
+      <div class="col-xs-12">
+        {{sharable-sharings groups=groups}}
+        <h3>
+          Attachments ({{model.attachments.length}})
+          <span class="btn-group" role="group" aria-label="...">
+            {{#file-picker
+              accept=".jpg,.jpeg,.gif,.png,.pdf,.doc,.docx,.pages"
+              fileLoaded="fileLoaded"
+              readAs="readAsDataURL"
+              progress=true
+              preview=false
+              classNames="btn btn-default"
+            }}
+              <span class="glyphicon glyphicon-plus"></span>
+              Drag/click to upload a file
+            {{/file-picker}}
+          </span>
+        </h3>
+        <ul class="list-group">
+          {{#each model.attachments key="id" as |attachment| }}
+            {{partial "attachments/show"}}
+          {{/each}}
+        </ul>
+        {{#if model.pictures}}
+          <h3>Pictures ({{model.pictures.length}})</h3>
+          <ul class="list-group">
+            {{#each model.pictures key="id" as |picture|}}
+              {{partial "pictures/show"}}
+            {{/each}}
+          </ul>
+        {{/if}}
+      </div>
+    </div>
   </div>
 </div>
 

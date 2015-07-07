@@ -1,2 +1,60 @@
-<h1>New document</h1>
-{{partial 'documents/form'}}
+<div class="row">
+  <div class="col-sm-12">
+    <h1>
+      Create a new document
+    </h1>
+    <form {{action "save" on="submit"}}>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group {{if model.errors.category 'has-error' 'has-no-error'}}">
+            <label class="control-label">
+              Category
+              {{select-2
+                content=categories
+                value=model.category
+                optionLabelPath="name"
+                placeholder="Select a category"
+                allowClear=true
+              }}
+            </label>
+            {{form-errors model=model attribute='category'}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group {{if model.errors.name 'has-error' 'has-no-error'}}">
+            <label class="control-label">
+              Name
+              {{input
+                value=model.name
+                classNames="form-control document-form-name"
+                placeholder="Enter a title for your document"
+                size='50'
+              }}
+            </label>
+            {{form-errors model=model attribute='name'}}
+          </div>
+          <div class="form-group">
+            <label>
+              Content
+            </label>
+              {{textarea
+                value=version.contentMd
+                classNames='form-control version-form-content_md'
+                autoresize=true
+                escape-press='cancel'
+              }}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Preview</strong></p>
+          <div class="document-html version-preview-paper">
+            <h1>{{model.name}}</h1>
+            {{markdown-to-html markdown=version.contentMd}}
+          </div>
+        </div>
+      </div>
+      <input type="submit" value="Save" class="btn btn-success">
+      <button {{action "cancel"}} class="btn btn-default">cancel</button>
+    </form>
+  </div>
+</div>

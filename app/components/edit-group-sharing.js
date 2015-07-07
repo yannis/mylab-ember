@@ -36,7 +36,7 @@ export default Ember.Component.extend({
       var sharing = store.createRecord('sharing', {sharable: sharable, group: group});
       sharing.save().then( function(sharing) {
         sharable.get('sharings').addObject(sharing);
-        Ember.get(_this, 'flashMessages').success('Document shared!', {sticky: true});
+        _this.get('flashMessages').success('Document shared!', {sticky: true});
       });
     },
     destroySharing: function(group){
@@ -46,7 +46,7 @@ export default Ember.Component.extend({
       var sharing = this.get("sharable.sharings.firstObject", {group: group});
       sharing.destroyRecord().then( function(sharing) {
         sharable.get('sharings').removeObject(sharing);
-        Ember.get(_this, 'flashMessages').success('Document unshared!', {sticky: true});
+        _this.get('flashMessages').success('Document unshared!', {sticky: true});
       });
     }
   },

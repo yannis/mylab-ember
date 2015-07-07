@@ -2,11 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  model: function(params){
+  model: function(){
     return this.modelFor('categories');
   },
 
-  afterModel: function(model, transition) {
+  afterModel: function(model) {
     if (model.length) {
       var lastCategory = model.sortBy('name:asc').get('firstObject');
       return this.transitionTo('categories.show', lastCategory);

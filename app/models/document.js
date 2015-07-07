@@ -1,5 +1,4 @@
 import DS from 'ember-data';
-import Picturable from './picturable';
 import Sharable from './sharable';
 import Abilities from '../lib/abilities';
 
@@ -32,7 +31,6 @@ export default Sharable.extend(Abilities, {
   }.property('sortedVersions'),
 
   lastUpdatedVersion: function(){
-    var sortedVersions = this.get('versions').sortBy('updatedAt:desc');
     return this.get('sortedVersions').get('firstObject');
   }.property('versions.@each.updatedAt')
 

@@ -1,7 +1,7 @@
 import Ember from "ember";
 import config from '../config/environment';
 import { request as icAjaxRequest } from 'ic-ajax';
-import ic from 'ic-ajax';
+// import ic from 'ic-ajax';
 
 export default Ember.Controller.extend({
   pageTitle: "Reset your password",
@@ -29,7 +29,7 @@ export default Ember.Controller.extend({
         function(e){
           _this.set('errors', JSON.parse(e.jqXHR.responseText).errors);
         }
-      )
+      );
     },
     cancel: function() {
       this.transitionToRoute('index');

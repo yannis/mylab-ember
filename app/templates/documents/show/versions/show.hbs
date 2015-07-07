@@ -1,40 +1,8 @@
 <div class="col-md-12">
-  <h3 class="">
-    Version '{{model.name}}'
-    <small>
-      Created {{formatted-date model.createdAt 'YYYY-MM-DD'}}
-      {{#if model.creator }}
-        ({{link-to model.creator.name "users.show" model.creator}})
-      {{/if}}
-      • Updated {{formatted-date model.updatedAt 'YYYY-MM-DD'}}
-      {{#if model.updater }}
-        ({{link-to model.updater.name "users.show" model.updater}})
-      {{/if}}
-    </small>
-    <span class="pull-right btn-group" role="group" aria-label="...">
-      {{#if model.updatable}}
-        {{#link-to 'documents.show.versions.duplicate' model.id classNames='btn btn-success' title="Duplicate this version" data-toggle="tooltip" data-placement="top"}}
-          <span class="glyphicon glyphicon-duplicate"></span>
-        {{/link-to}}
-        {{#link-to 'documents.show.versions.edit' model classNames='btn btn-primary' title="Edit this version" data-toggle="tooltip" data-placement="top"}}
-          <span class="glyphicon glyphicon-edit"></span>
-        {{/link-to}}
-      {{/if}}
-      {{#if model.destroyable}}
-        <a href="#" {{action "delete" model}} class="btn btn-danger" title="Destroy this version" data-toggle="tooltip" data-placement="top">
-          <span class="glyphicon glyphicon-trash"></span>
-        </a>
-      {{/if}}
-      {{#if model.readable}}
-        <a href="{{pdfUrlWithCredentials}}" class="btn btn-default" title="Get a PDF of this version" data-toggle="tooltip" data-placement="top"  target="_blank">
-          {{fa-icon "file-pdf-o"}}
-        </a>
-      {{/if}}
-    </span>
-  </h3>
-</div>
-<div class="col-md-12">
-  <div class="document-html">
+  <div class="document-html version-preview-paper">
+    <h1>
+      {{model.document.name}} (version '{{model.name}}')
+    </h1>
     {{markdown-to-html markdown=model.contentMd}}
   </div>
 </div>

@@ -3,7 +3,7 @@ import {
   test
 } from 'ember-qunit';
 
-moduleForModel('api::v1::picture', {
+moduleForModel('picture', {
   // Specify the other units that are required for this test.
   needs: []
 });

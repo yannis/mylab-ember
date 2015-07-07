@@ -9,7 +9,6 @@ export default Ember.Controller.extend({
   }.observes("model.sharings").property(),
 
   availableGroups: function(){
-    var _this = this;
     var currentGroupsName = this.model.get("sharings").mapBy('group.name');
     return this.store.filter('group', function(group) {
       return !currentGroupsName.contains(group.get('name'));
@@ -19,7 +18,7 @@ export default Ember.Controller.extend({
   actions: {
     editSharings: function(){
       this.set('sharingsInEdition', true);
-      return false
+      return false;
     },
     doneEditingSharings: function(){
       this.set('sharingsInEdition', false);

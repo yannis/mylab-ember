@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(params) {
+  model: function() {
     return this.modelFor("documents.show").get('versions').sortBy('createdAt:desc');
   },
 

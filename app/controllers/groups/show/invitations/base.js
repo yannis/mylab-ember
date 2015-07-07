@@ -8,12 +8,12 @@ export default Ember.Controller.extend({
       var inviter = this.get("session.currentUser");
       invitation.set('inviter', inviter);
       invitation.save().then(
-        function(i) {
-          Ember.get(_this, 'flashMessages').success('Invitation sent!');
+        function() {
+          _this.get('flashMessages').success('Invitation sent!');
           _this.transitionToRoute('groups.show', invitation.get('group'));
         },
         function(error){
-          Ember.get(_this, 'flashMessages').danger(error);
+          _this.get('flashMessages').danger(error);
         }
       );
     },

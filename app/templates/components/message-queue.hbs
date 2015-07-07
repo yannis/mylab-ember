@@ -1,5 +1,5 @@
 {{#if untimedMessages}}
-  {{#each message in untimedMessages}}
+  {{#each untimedMessages key='@guid' as |message|}}
     {{flash-message
       message=message
     }}

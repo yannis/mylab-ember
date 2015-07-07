@@ -1,27 +1,42 @@
 import Ember from 'ember';
+import {
+  module,
+  test
+} from 'qunit';
 import pretenderServer from './../pretender-server';
-import { module, test } from 'qunit';
+import {make, makeList} from 'ember-data-factory-guy';
+import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import startApp from 'mylab/tests/helpers/start-app';
 
 var application, server;
 
 module('Acceptance | passwords/new', {
   beforeEach: function() {
-    application = startApp();
-    server = pretenderServer;
-    invalidateSession();
+    Ember.run(function(){
+      application = startApp();
+      TestHelper.setup();
+      invalidateSession();
+      server = pretenderServer;
+    });
   },
 
   afterEach: function() {
-    invalidateSession();
-    server.shutdown();
-    Ember.run(application, 'destroy');
+    Ember.run(function(){
+      server.shutdown();
+      invalidateSession();
+      TestHelper.teardown();
+      application.destroy();
+    });
   }
 });
 
 test('visiting /new_password/:token with valid params', function(assert) {
+  var user = make('user', {token: "tokentokentokentoken"});
+  server.put('/api/v1/users/password', function(request) {
+    return [200, {"Content-Type": "application/json"}, JSON.stringify({user: user})];
+  });
 
-  visit('/new_password/d531c9983a24726257a91');
+  visit('/new_password/tokentokentokentoken');
 
   andThen(function() {
     assert.equal(
@@ -41,8 +56,7 @@ test('visiting /new_password/:token with valid params', function(assert) {
 });
 
 test('visiting /new_password/:token with empty password', function(assert) {
-
-  visit('/new_password/d531c9983a24726257a91');
+  visit('/new_password/tokentokentokentoken');
 
   andThen(function() {
     assert.equal(
@@ -56,15 +70,14 @@ test('visiting /new_password/:token with empty password', function(assert) {
     click('button[type="submit"]');
   });
   andThen(function() {
-    assert.ok(find("p.text-danger:contains(Password can't be blank)").length, "got error on password");
+    assert.ok(find("p.text-danger:contains(Password can't be blank)").length, "get error on password");
     assert.equal(currentRouteName(), 'new_password');
     assert.equal(currentPath(), 'new_password');
   });
 });
 
 test('visiting /new_password/:token with non matching password', function(assert) {
-
-  visit('/new_password/d531c9983a24726257a91');
+  visit('/new_password/tokentokentokentoken');
 
   andThen(function() {
     assert.equal(
@@ -77,6 +90,7 @@ test('visiting /new_password/:token with non matching password', function(assert
     fillIn('input[name=password_confirmation]', 'bad_new_password');
     click('button[type="submit"]');
   });
+
   andThen(function() {
     assert.ok(find("p.text-danger:contains(Password doesn't match confirmation)").length, "got error on password");
     // assert.equal(currentURL(), '/new_password');
@@ -86,6 +100,10 @@ test('visiting /new_password/:token with non matching password', function(assert
 });
 
 test('visiting /new_password/:token with invalid token', function(assert) {
+  var user = make('user', {token: "tokentokentokentoken"});
+  server.put('/api/v1/users/password', function(request) {
+    return [422, {"Content-Type": "application/json"}, JSON.stringify({"errors":{"reset_password_token":["has expired, please request a new one"]}})];
+  });
 
   visit('/new_password/invalidtoken');
 

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 export function initialize(/* container, application */) {
   // application.inject('route', 'foo', 'service:foo');
 }
@@ -5,8 +6,8 @@ export function initialize(/* container, application */) {
 export default {
   name: 'tooltip',
   initialize: function(){
-    $(document).ready(function () {
-      $('body').tooltip({
+    Ember.$(document).ready(function () {
+      Ember.$('body').tooltip({
         selector: '[data-toggle="tooltip"]'
       });
     });

@@ -12,7 +12,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       this._super();
     },
     sessionAuthenticationFailed: function(message){
-      this.get('flashMessages').danger(message.errors);
+      this.get('flashMessages').danger(message.errors, {sticky: true});
       this._super();
     },
     invalidateSession: function() {

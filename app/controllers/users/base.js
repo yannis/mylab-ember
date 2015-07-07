@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
       var _this = this;
       this.get('model').save().then(
         function(user) {
-          Ember.get(_this, 'flashMessages').success('User saved!');
+          _this.get('flashMessages').success('User saved!');
           _this.transitionToRoute('users.show', user);
         },
         function() {

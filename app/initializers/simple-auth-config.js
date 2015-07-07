@@ -7,7 +7,7 @@ export default {
   name:       'simple-auth-config',
   before:     'simple-auth',
 
-  initialize: function(container, application) {
+  initialize: function(container) {
 
     DeviseAuthenticator.reopen({
       invalidate: function(){
@@ -17,14 +17,14 @@ export default {
           dataType: 'JSON'
         });
       }
-    })
+    });
 
     Session.reopen({
       currentUser : function() {
         var userId = this.get('secure.id');
         if (!Ember.isEmpty(userId)) {
-          return container.lookup('store:application').find('user', userId);
-        };
+          return container.lookup('service:store').findRecord('user', userId);
+        }
       }.property('secure.id')
     });
   }

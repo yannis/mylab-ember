@@ -5,10 +5,12 @@ export default DS.Model.extend(Abilities, {
   name: DS.attr('string'),
   email: DS.attr('string'),
   password: DS.attr('string'),
+
   // required for user creation from invitation
   token: DS.attr('string'),
   invitation_id: DS.attr('number'),
   //
+
   memberships: DS.hasMany('membership', {async: true}),
   documents: DS.hasMany('document', {async: true}),
   invitationsAsInvited: DS.hasMany('invitation', {async: true}),
@@ -24,14 +26,14 @@ export default DS.Model.extend(Abilities, {
 
   pastInvitationsAsInvited: function(){
     // return this.get("invitationsAsInvited").filterBy("state", "accepted");
-    return this.get("invitationsAsInvited").filter(function(invitation, index, invitations){
-      return invitation.get('state') !== null
+    return this.get("invitationsAsInvited").filter(function(invitation){
+      return invitation.get('state') !== null;
     });
   }.property('invitationsAsInvited.@each.state'),
 
   pastInvitationsAsInviter: function(){
-    return this.get("invitationsAsInviter").filter(function(invitation, index, invitations){
-      return invitation.get('state') !== null
+    return this.get("invitationsAsInviter").filter(function(invitation){
+      return invitation.get('state') !== null;
     });
   }.property('invitationsAsInviter.@each.state'),
 

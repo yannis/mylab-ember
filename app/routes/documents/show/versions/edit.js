@@ -10,12 +10,18 @@ export default Ember.Route.extend({
     model.rollback();
   },
 
+
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    controller.set('categories', this.store.findAll('category'));
+  },
+
   actions: {
     willTransition: function(transition){
       var model = this.get('controller.model');
       var leave;
       if (model.get('isDirty')) {
-        leave = window.confirm("You have unsaved changes. Are you sure you want to leave?")
+        leave = window.confirm("You have unsaved changes. Are you sure you want to leave?");
         if (leave) {
           model.rollback();
         } else {

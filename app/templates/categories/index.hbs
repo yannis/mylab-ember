@@ -4,7 +4,7 @@
       Categories
     </h1>
     <ul class="list-group">
-      {{#each category in arrangedContent}}
+      {{#each arrangedContent key='@guid' as |category|}}
         <li class="list-group-item">
           {{link-to category.name 'categories.show' category}}
         </li>

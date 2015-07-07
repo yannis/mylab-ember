@@ -1,8 +1,4 @@
 import Ember from 'ember';
-import config from '../config/environment';
-// import { raw as icAjaxRaw } from 'ic-ajax';
-import { request as icAjaxRequest } from 'ic-ajax';
-import ic from 'ic-ajax';
 
 export default Ember.Controller.extend({
   actions: {

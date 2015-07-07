@@ -55,7 +55,7 @@
       <h3>Pending invitations ({{#if model.pendingInvitations}}{{model.pendingInvitations.length}}{{else}}0{{/if}})</h3>
       <ul class='list-group'>
         {{#if model.pendingInvitationsAsInvited}}
-          {{#each invitation in model.pendingInvitationsAsInvited }}
+          {{#each model.pendingInvitationsAsInvited  key='@guid' as |invitation|}}
             <li class="list-group-item clearfix">
               {{#if invitation.state}}
                 {{invitation.state}}
@@ -84,7 +84,7 @@
           {{/each}}
         {{/if}}
         {{#if model.pendingInvitationsAsInviter}}
-          {{#each invitation in model.pendingInvitationsAsInviter }}
+          {{#each model.pendingInvitationsAsInviter  key='@guid' as |invitation|}}
             <li class="list-group-item clearfix">
               {{#if invitation.state}}
                 {{invitation.state}}
@@ -114,7 +114,7 @@
     <div class="col-md-12">
       <h3>Past invitations ({{model.pastInvitationsCount}})</h3>
       <ul class='list-group'>
-        {{#each invitation in model.pastInvitationsAsInviter }}
+        {{#each model.pastInvitationsAsInviter  key='@guid' as |invitation|}}
           <li class="list-group-item clearfix">
             {{invitation.state}}: You have invited
             {{#if invitation.invited}}
@@ -135,7 +135,7 @@
             {{/if}}
           </li>
         {{/each}}
-        {{#each invitation in model.pastInvitationsAsInvited }}
+        {{#each model.pastInvitationsAsInvited  key='@guid' as |invitation|}}
           <li class="list-group-item clearfix">
             {{invitation.state}}: You have been invited
             {{#if invitation.inviter}}

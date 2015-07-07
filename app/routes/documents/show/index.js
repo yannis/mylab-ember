@@ -1,19 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(params){
+  model: function(){
     return this.modelFor('documents.show');
   },
-  redirect: function (model, transition) {
+  redirect: function (model) {
     if (model) {
       this.transitionTo('documents.show.versions');
-      // model.get("versions").then(
-      //   function(versions){
-      //     if (versions.length) {
-      //       this.transitionTo('documents.show.versions');
-      //     }
-      //   }
-      // )
     }
   },
 });

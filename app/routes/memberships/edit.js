@@ -2,13 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function(params) {
-    var memberships = this.modelFor('memberships');
-    return memberships.findBy('id', params.membership_id);
+    // var group = this.modelFor('groups.show');
+    // var memberships = group.get('memberships');
+    // return memberships.findBy('id', params.membership_id);
+    return this.store.find('membership', params.membership_id);
   },
 
   setupController: function(controller, model) {
     this._super(controller, model);
-    controller.set('groups', this.store.find('group'));
-    controller.set('users', this.store.find('user'));
+    controller.set('groups', this.store.findAll('group'));
+    controller.set('users', this.store.findAll('user'));
   }
 });

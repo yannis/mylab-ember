@@ -1,7 +1,7 @@
 import Ember from "ember";
 import config from '../config/environment';
 import { request as icAjaxRequest } from 'ic-ajax';
-import ic from 'ic-ajax';
+// import ic from 'ic-ajax';
 
 export default Ember.Controller.extend({
   pageTitle: "Change your password",
@@ -9,7 +9,6 @@ export default Ember.Controller.extend({
     update_password: function() {
       var _this = this;
       var data = this.getProperties('password', 'password_confirmation');
-
       if (Ember.isEmpty(data.password)) {
         this.set('errors', {password: ["can't be blank"]});
         return false;
@@ -42,9 +41,8 @@ export default Ember.Controller.extend({
         },
         function(e){
           _this.set('errors', JSON.parse(e.jqXHR.responseText).errors);
-          // _this.get('flashMessages').danger(JSON.parse(e.jqXHR.responseText).errors, {sticky: true});
         }
-      )
+      );
     },
     cancel: function() {
       return this.transitionToRoute('index');

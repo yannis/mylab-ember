@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(params){
+  model: function(){
     return this.modelFor('groups.show');
   },
-  redirect: function (model, transition) {
+  redirect: function (model) {
     if (model) {
       this.transitionTo('groups.show.documents');
     }

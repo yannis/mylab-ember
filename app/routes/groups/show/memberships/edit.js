@@ -10,7 +10,7 @@ export default Ember.Route.extend({
 
   setupController: function(controller, model) {
     this._super(controller, model);
-    controller.set('groups', this.store.find('group'));
-    controller.set('users', this.store.find('user'));
+    controller.set('groups', this.store.findAll('group'));
+    controller.set('users', this.store.findAll('user'));
   }
 });

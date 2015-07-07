@@ -4,6 +4,7 @@ import {
 } from 'ember-qunit';
 
 moduleForComponent('form-errors', {
+  unit: true
   // Specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
 });

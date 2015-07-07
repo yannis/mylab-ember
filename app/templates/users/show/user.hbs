@@ -29,7 +29,7 @@
   {{#if model.memberships}}
     <h3>You are both part of these groups ({{model.memberships.length}})</h3>
     <ul class='list-group'>
-      {{#each membership in model.memberships }}
+      {{#each model.memberships  key='@guid' as |membership|}}
         <li class="list-group-item clearfix">
           {{link-to membership.group.name 'groups.show' membership.group}} ({{membership.role}})
           <div class="btn-group pull-right" role="group" aria-label="...">

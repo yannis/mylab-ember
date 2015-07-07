@@ -1,9 +1,17 @@
-<div class="panel panel-default">
+<div class="panel panel-default sharings">
   <div class="panel-heading">
     <h3>Shared with groups ({{model.sharings.length}})</h3>
   </div>
+  {{#unless groups}}
+    <div class="panel-body">
+      <p>
+        You currently have no group to share this document with.
+        {{link-to "Create one?" 'groups.new'}}
+      </p>
+    </div>
+  {{/unless}}
   <ul class="list-group">
-    {{#each group in sharedGroups}}
+    {{#each sharedGroups key='' as |group|}}
       <li class="list-group-item">
         {{#if isEditing }}
           <label>
@@ -18,7 +26,7 @@
   </ul>
   {{#if isEditing }}
     <ul class="list-group">
-      {{#each group in availableGroups}}
+      {{#each availableGroups key='id' as |group|}}
         <li class="list-group-item">
           <label>
             <input class="" type="checkbox"  {{action "addSharing" group}} />
@@ -28,77 +36,15 @@
       {{/each}}
     </ul>
   {{/if}}
-  <div class="panel-footer">
-    {{#if isEditing}}
-      <button class="btn btn-default" {{action "doneEditingSharings"}}>
-        Done
-      </button>
-    {{else}}
-      {{#if session.currentUser.canCreateSharing }}
-        <button class="btn btn-primary" {{action "editSharings"}}>
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-      {{/if}}
-    {{/if}}
-  </div>
-</div>
-
-{{!--
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3>Shared with groups ({{model.sharings.length}})</h3>
-  </div>
-  <ul class="list-group">
-    {{#unless sharedGroups}}
-      {{#unless sharingsInEdition}}
-        <li class="list-group-item">
-          Not shared with any group
-        </li>
-      {{/unless}}
-    {{/unless}}
-    {{#each group in sharedGroups}}
-      paf |
-      {{edit-group-sharing
-        sharable=model
-        group=group
-        isEditing=sharingsInEdition
-        tagName="li"
-        classNames="list-group-item"
-      }}
-    {{/each}}
-    {{#if sharingsInEdition}}
-      {{#each group in availableGroups}}
-        {{edit-group-sharing
-          sharable=model
-          group=group
-          isEditing=sharingsInEdition
-          tagName="li"
-          classNames="list-group-item"
-        }}
-      {{/each}}
-    {{/if}}
-  </ul>
-
-{{!--   <ul class="list-group">
-    {{#each group in groups}}
-      {{edit-group-sharing
-        sharable=model
-        group=group
-        isEditing=sharingsInEdition
-        tagName="li"
-        classNames="list-group-item"
-      }}
-    {{/each}}
-  </ul> --}}
-  {{!-- {{#if model.updatable }}
+  {{#if groups}}
     <div class="panel-footer">
-      {{#if sharingsInEdition}}
+      {{#if isEditing}}
         <button class="btn btn-default" {{action "doneEditingSharings"}}>
           Done
         </button>
       {{else}}
         {{#if session.currentUser.canCreateSharing }}
-          <button class="btn btn-primary" {{action "editSharings"}}>
+          <button class="btn btn-primary" {{action "editSharings"}} title="(Un)share with groups" data-toggle="tooltip" data-placement="top">
             <span class="glyphicon glyphicon-edit"></span>
           </button>
         {{/if}}
@@ -106,4 +52,3 @@
     </div>
   {{/if}}
 </div>
- --}}

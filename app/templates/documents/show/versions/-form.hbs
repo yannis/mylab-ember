@@ -1,13 +1,52 @@
 <form {{action "save" on="submit"}}>
-{{!--   <div class="form-group">
-    {{input value=model.document.name classNames='form-control'}}
-  </div> --}}
-  <div class="form-group">
-    {{textarea
-      value=model.contentMd
-      classNames='form-control'
-      autoresize=true
-    }}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group {{if model.document.errors.category 'has-error' 'has-no-error'}}">
+        <label class="control-label">
+          Document category
+          {{select-2
+            content=categories
+            value=model.document.category
+            optionLabelPath="name"
+            placeholder="Select a category"
+            allowClear=true
+          }}
+        </label>
+        {{form-errors model=model.document attribute='category'}}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group {{if model.errors.name 'has-error' 'has-no-error'}}">
+        <label class="control-label">
+          Document name
+          {{input
+            value=model.document.name
+            classNames="form-control document-form-name"
+            placeholder="Enter a title for your document"
+          }}
+        </label>
+        {{form-errors model=model.document attribute='name'}}
+      </div>
+      <div class="form-group {{if model.errors.contentMd 'has-error' 'has-no-error'}}">
+        {{form-errors model=model attribute='contentMd'}}
+        <label>
+          Content
+        </label>
+        {{textarea
+          value=model.contentMd
+          classNames='form-control version-form-content_md'
+          autoresize=true
+          escape-press='cancel'
+        }}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Preview</strong></p>
+      <div class="document-html version-preview-paper">
+        <h1>{{model.document.name}}</h1>
+        {{markdown-to-html markdown=model.contentMd}}
+      </div>
+    </div>
   </div>
   <input type="submit" value="Save" class="btn btn-success">
   <button {{action "cancel"}} class="btn btn-default">cancel</button>

@@ -2,11 +2,11 @@ import Ember from 'ember';
 import config from './config/environment';
 
 var Router = Ember.Router.extend({
-  location: config.locationType
+  location: config.locationType,
+  // rootURL: '/documents/'
 });
 
 Router.map(function() {
-  rootURL: '/documents';
   this.route('login');
   this.route('logout');
   this.route("reset_password");
@@ -70,6 +70,8 @@ Router.map(function() {
     this.route('edit', {path: ':user_id/edit'});
   });
 
+  this.route('versions.new', {path: 'versions/new'});
+
   this.route('groups', function() {
     this.route('show', {path: ':group_id'}, function(){
       this.route('documents', {path: 'documents'});
@@ -88,6 +90,7 @@ Router.map(function() {
 
   });
   this.route("fourOhFour", { path: "*path"});
+  this.route('documents:index');
 });
 
 export default Router;

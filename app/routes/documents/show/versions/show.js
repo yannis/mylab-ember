@@ -9,7 +9,7 @@ export default Ember.Route.extend({
     // Call _super for default behavior
     this._super(controller, model);
     // Implement your custom setup after
-    this.controllerFor('documents.show.versions').set('currentVersion', model);
+    this.controllerFor('documents.show').set('currentVersion', model);
   },
 
   actions: {
@@ -17,7 +17,7 @@ export default Ember.Route.extend({
       var _this = this;
       if (window.confirm("Are you sure you want to delete this version?")) {
         version.destroyRecord().then(function(v) {
-          Ember.get(_this, 'flashMessages').success('Version deleted');
+          _this.get('flashMessages').success('Version deleted');
           _this.transitionTo('documents.show', v.get('document'));
         });
       }

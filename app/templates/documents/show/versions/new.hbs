@@ -1,15 +1,15 @@
-<div class="col-md-12">
-  <h3>
-    Version '{{model.name}}'
-    <br>
-    <small>
-      created {{formatted-date model.createdAt 'LL'}} – last updated {{formatted-date model.updatedAt 'LL'}}
-    </small>
-  </h3>
-</div>
-<div class="col-md-6">
-  {{partial 'documents/show/versions/form'}}
-</div>
-<div class="col-md-6 document-html">
-  {{markdown-to-html markdown=model.contentMd}}
+<div class="row">
+  <div class="col-sm-12">
+    <h1>
+      New version
+      {{#if model.name}}
+        '{{model.name}}'
+      {{/if}}
+      {{#if model.document.name}}
+        for document
+        '{{model.document.name}}'
+      {{/if}}
+    </h1>
+    {{partial 'documents/show/versions/form'}}
+  </div>
 </div>

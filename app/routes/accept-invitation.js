@@ -19,7 +19,7 @@ export default Ember.Route.extend({
         } else {
           inv.set('token', params.token);
           return inv;
-        };
+        }
       },
       function(error) {
         _this.get('flashMessages').danger(error);

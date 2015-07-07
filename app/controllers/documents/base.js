@@ -5,16 +5,25 @@ export default Ember.Controller.extend({
   // needs: ["documents/show/versions"],
 
   categories: function(){
-    return this.get('model.store').find('document');
+    return this.get('model.store').findAll('document');
   },
   actions: {
     save: function() {
       var _this = this;
+      _this.get('flashMessages').clearMessages();
       this.get('model').save().then(
         function(document) {
-          Ember.get(_this, 'flashMessages').success('Document saved!', {sticky: true});
-          // _this.get("controllers.documents/show/versions").set("model", document.get('versions'));
-          _this.transitionToRoute('documents.show', document);
+          _this.get('flashMessages').success('Document saved!', {sticky: false});
+          if (_this.get('version')) {
+            _this.get('version').save().then(
+              function(version){
+                _this.transitionToRoute('documents.show.versions.show', document, version);
+              },
+              function(){}
+            );
+          } else {
+            _this.transitionToRoute('documents.show', document);
+          }
         },
         function(){}
       );
